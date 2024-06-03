@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Computing on Cluster &#8212; The Ding Lab Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=5db94ae7"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'computing_on_cluster';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Help" href="getting_help.html" />
+    <link rel="prev" title="Text Editors" href="editors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">The Ding Lab Handbook</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cluster_account.html">Cluster Account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux_commands.html">Linux commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors.html">Text Editors</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Computing on Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_help.html">Getting Help</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/DingGroup/TheDingLabHandbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/computing_on_cluster.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Computing on Cluster</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#login-nodes-vs-compute-nodes">1. Login nodes vs. compute nodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">2. Slurm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">Interactive jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-batch-jobs">Submit batch jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-useful-commands">Other useful commands</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="computing-on-cluster">
+<h1>Computing on Cluster<a class="headerlink" href="#computing-on-cluster" title="Link to this heading">#</a></h1>
+<section id="login-nodes-vs-compute-nodes">
+<h2>1. Login nodes vs. compute nodes<a class="headerlink" href="#login-nodes-vs-compute-nodes" title="Link to this heading">#</a></h2>
+<p>When you login to a cluster using <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, you are logging into a login node. The login node is a shared resource that is used by all users to access the cluster. The login node is not meant for running computationally intensive jobs. Instead, you should run your jobs on the compute nodes. The compute nodes are the nodes that are dedicated to running your jobs. The login node is used to allocate resources on the compute nodes, submit jobs to the compute nodes, and monitor the status of your jobs.</p>
+</section>
+<section id="slurm">
+<h2>2. Slurm<a class="headerlink" href="#slurm" title="Link to this heading">#</a></h2>
+<p>The compute nodes are managed by a job scheduler called Slurm. Slurm is used to allocate resources on the compute nodes, submit jobs to the compute nodes, and monitor the status of your jobs.
+Slurm groups compute nodes into partitions. Each partition has a set of compute nodes that are dedicated to running a specific type of job. For example, a cluster may have a partition for running jobs that require a lot of memory, and another partition for running jobs that require a GPU (Graphics Processing Unit). When you submit a job to Slurm, you specify the partition that you want to run the job on.</p>
+<p>There are two ways to run a job via Slurm. You can either run an interactive job or a batch job. An interactive job is a job that you run interactively on the compute nodes. A batch job is a job that you submit to Slurm and it runs in the background on the compute nodes.
+Interactive jobs are useful for developing and debugging your code. You can run your code interactively on the compute nodes and see the output in real-time. Batch jobs are useful for running computationally intensive jobs that take a long time to complete. You submit your job to Slurm and it runs in the background on the compute nodes.</p>
+<section id="interactive-jobs">
+<h3>Interactive jobs<a class="headerlink" href="#interactive-jobs" title="Link to this heading">#</a></h3>
+<p>For example, you can use <code class="docutils literal notranslate"><span class="pre">salloc</span> <span class="pre">-p</span> <span class="pre">dinglab</span> <span class="pre">-n</span> <span class="pre">1</span> <span class="pre">--time=8:00:00</span> <span class="pre">-c</span> <span class="pre">4</span> <span class="pre">srun</span> <span class="pre">--pty</span> <span class="pre">bash</span> <span class="pre">-i</span></code> to run an interactive job on a compute node. This command will allocate one node from the <code class="docutils literal notranslate"><span class="pre">dinglab</span></code> partition for 8 hours with 4 CPUs and start an interactive shell on the compute node. You can then run your code interactively on the compute node. You can change the partition, the number of nodes, the time limit, and the number of CPUs to suit your needs. To see other options that you can use with <code class="docutils literal notranslate"><span class="pre">salloc</span></code>, you can run <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">salloc</span></code>.</p>
+</section>
+<section id="submit-batch-jobs">
+<h3>Submit batch jobs<a class="headerlink" href="#submit-batch-jobs" title="Link to this heading">#</a></h3>
+<p>Let’s say you have the following bash script called <code class="docutils literal notranslate"><span class="pre">myscript.sh</span></code> that you want to run on the compute nodes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span>
+sleep<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+<p>To submit this script as a batch job to Slurm, you can use the following command:
+<code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">-p</span> <span class="pre">dinglab</span> <span class="pre">-n</span> <span class="pre">1</span> <span class="pre">--time=05:00</span> <span class="pre">-c</span> <span class="pre">1</span> <span class="pre">myscript.sh</span></code>. This command will submit the script as a batch job to the <code class="docutils literal notranslate"><span class="pre">dinglab</span></code> partition with 1 node, a time limit of 5 mins, and 1 CPU. Of course, this job will finish in 5 seconds and when it is done, slurm will automatically release the resources back to the cluster.
+Note that the first line of the script must be <code class="docutils literal notranslate"><span class="pre">#!/bin/bash</span></code>. This line tells the operating system that the script should be run using the bash shell.</p>
+<p>It is not very convenient to have to type the partition, the number of nodes, the time limit, and the number of CPUs in the command line every time you want to submit this job. Instead, you can specify these options inside the script itself. You can add the following lines to the script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=any_name_to_choose</span>
+<span class="c1">#SBATCH --partition=dinglab</span>
+<span class="c1">#SBATCH --time=05:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --open-mode=trucate</span>
+<span class="c1">#SBATCH --output=./log_%A.out</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span>
+sleep<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
+<p>Then you can submit the script as a batch job to Slurm using <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">myscript.sh</span></code>. <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> will read the options from the script and submit the job to the specified partition with the specified number of nodes, time limit, and number of CPUs. We also added the <code class="docutils literal notranslate"><span class="pre">--output</span></code> option to specify the output file. The <code class="docutils literal notranslate"><span class="pre">%A</span></code> in the output file name will be replaced by the job ID. The output file will contain the output of the script which is <code class="docutils literal notranslate"><span class="pre">Hello,</span> <span class="pre">World!</span></code> in this case.</p>
+<p>Now what if you want to run the following Python script called <code class="docutils literal notranslate"><span class="pre">myscript.py</span></code> on the compute nodes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You have two options. You can either run the Python script inside a bash script, or you can run the Python script directly using the Python interpreter. To run the Python script inside a bash script, you can create a bash script called <code class="docutils literal notranslate"><span class="pre">myscript.sh</span></code> with the following lines:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=any_name_to_choose</span>
+<span class="c1">#SBATCH --partition=dinglab</span>
+<span class="c1">#SBATCH --time=05:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --open-mode=trucate</span>
+<span class="c1">#SBATCH --output=./log_%A.out</span>
+
+<span class="c1">## your need to activate the conda environment first</span>
+conda<span class="w"> </span>activate<span class="w"> </span>lab
+python<span class="w"> </span>myscript.py
+</pre></div>
+</div>
+<p>You can then submit the bash script as a batch job to Slurm using <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">myscript.sh</span></code>.</p>
+<p>Alternatively, you can run the Python script directly using the Python interpreter. In order to do it, you need to change the python scripts as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/cluster/tufts/dinglab/shared_apps/miniconda3/envs/lab/bin/python</span>
+<span class="c1">#SBATCH --job-name=any_name_to_choose</span>
+<span class="c1">#SBATCH --partition=dinglab</span>
+<span class="c1">#SBATCH --time=05:00</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --open-mode=trucate</span>
+<span class="c1">#SBATCH --output=./log_%A.out</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you can submit the Python script as a batch job to Slurm using <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">myscript.py</span></code>. Here the first line of the script is <code class="docutils literal notranslate"><span class="pre">#!/cluster/tufts/dinglab/shared_apps/miniconda3/envs/lab/bin/python</span></code>. This line tells the operating system to run the script using the Python interpreter located at <code class="docutils literal notranslate"><span class="pre">/cluster/tufts/dinglab/shared_apps/miniconda3/envs/lab/bin/python</span></code>. You can find the path to the Python interpreter by running <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code> in the terminal.</p>
+</section>
+<section id="other-useful-commands">
+<h3>Other useful commands<a class="headerlink" href="#other-useful-commands" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sinfo</span></code>: Display information about the compute nodes. If you run <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> without any arguments, it will display information about all the partitions on the cluster that you can submit jobs to. It also displays information about the time limit, the number of nodes and the list of nodes in each partition. If you run <code class="docutils literal notranslate"><span class="pre">sinfo</span> <span class="pre">-o</span> <span class="pre">%P,%N,%G,%C,%m</span></code>, it will display information about the partitions, the nodes, the number of GPUs, the number of CPUs and the memory of each node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">squeue</span></code>: Display information about the jobs that are running or waiting to run on the compute nodes. If you run <code class="docutils literal notranslate"><span class="pre">squeue</span></code> without any arguments, it will display information about all the jobs that are running or waiting to run on the compute nodes. If you run <code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">username</span></code>, it will display information about the jobs that are running or waiting to run on the compute nodes for the specified username.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">job_id</span></code>: Cancel a job that is running or waiting to run on the compute nodes. You can find the job ID by running <code class="docutils literal notranslate"><span class="pre">squeue</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">show</span> <span class="pre">job</span> <span class="pre">job_id</span></code>: Display detailed information about a job that is running or waiting to run on the compute nodes. You can find the job ID by running <code class="docutils literal notranslate"><span class="pre">squeue</span></code>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="editors.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Text Editors</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="getting_help.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Getting Help</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#login-nodes-vs-compute-nodes">1. Login nodes vs. compute nodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">2. Slurm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">Interactive jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-batch-jobs">Submit batch jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-useful-commands">Other useful commands</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Ding Lab Members
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, The Ding Lab Members.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

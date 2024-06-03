@@ -15,6 +15,7 @@ It contains logistics, instructions, and tutorials.
    cluster_account
    linux_commands
    editors
+   computing_on_cluster
    getting_help
 
 ..
