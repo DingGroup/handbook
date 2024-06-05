@@ -16,6 +16,7 @@ It contains logistics, instructions, and tutorials.
    linux_commands
    editors
    computing_on_cluster
+   python_env
    getting_help
 
 ..
