@@ -18,6 +18,7 @@ It contains logistics, instructions, and tutorials.
    computing_on_cluster
    python_env
    getting_help
+   openmm/openmm_101
 
 ..
    Indices and tables
