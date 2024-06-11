@@ -19,6 +19,7 @@ It contains logistics, instructions, and tutorials.
    python_env
    getting_help
    openmm/openmm_101
+   ml/linear_regression_jax
 
 ..
    Indices and tables
