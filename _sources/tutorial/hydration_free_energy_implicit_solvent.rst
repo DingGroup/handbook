@@ -1,7 +1,7 @@
-Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model
-======================================================================
+Compute the Hydration Energy of Benzene Using An Implicit Solvent Model
+========================================================================
 
-This tutorial provides a step-by-step guide to benchmarking implicit solvent models using AmberTools, openMM, and FastMBER. AmberTools is used for parameterizing force fields and generating topology (prmtop) and initial coordinate (inpcrd) files. OpenMM runs simulations to obtain trajectories and potential energies. FastMBAR calculates relative free energies.
+This tutorial provides a step-by-step guide to compute the hydration energy of benzene using an implicit solvent model with AmberTools, OpenMM, and FastMBER. AmberTools is used for parameterizing force fields and generating topology (prmtop) and initial coordinate (inpcrd) files. OpenMM runs simulations to obtain trajectories and potential energies. FastMBAR calculates relative free energies.
 
 1. Parametrize Force Fields and Generate prmtop and inpcrd Files
 ----------------------------------------------------------------

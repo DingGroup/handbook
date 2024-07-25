@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model &#8212; The Ding Lab Handbook</title>
+    <title>Compute the Hydration Energy of Benzene Using An Implicit Solvent Model &#8212; The Ding Lab Handbook</title>
   
   
   
@@ -157,7 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_help.html">Getting Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../openmm/openmm_101.html">OpenMM 101</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ml/linear_regression_jax.html">Linear Regression using JAX</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Compute the Hydration Energy of Benzene Using An Implicit Solvent Model</a></li>
 </ul>
 
     </div>
@@ -311,7 +311,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model</h1>
+    <h1>Compute the Hydration Energy of Benzene Using An Implicit Solvent Model</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -336,9 +336,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="benchmarking-hydration-energy-for-benzene-using-implicit-solvent-model">
-<h1>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model<a class="headerlink" href="#benchmarking-hydration-energy-for-benzene-using-implicit-solvent-model" title="Link to this heading">#</a></h1>
-<p>This tutorial provides a step-by-step guide to benchmarking implicit solvent models using AmberTools, openMM, and FastMBER. AmberTools is used for parameterizing force fields and generating topology (prmtop) and initial coordinate (inpcrd) files. OpenMM runs simulations to obtain trajectories and potential energies. FastMBAR calculates relative free energies.</p>
+  <section id="compute-the-hydration-energy-of-benzene-using-an-implicit-solvent-model">
+<h1>Compute the Hydration Energy of Benzene Using An Implicit Solvent Model<a class="headerlink" href="#compute-the-hydration-energy-of-benzene-using-an-implicit-solvent-model" title="Link to this heading">#</a></h1>
+<p>This tutorial provides a step-by-step guide to compute the hydration energy of benzene using an implicit solvent model with AmberTools, OpenMM, and FastMBER. AmberTools is used for parameterizing force fields and generating topology (prmtop) and initial coordinate (inpcrd) files. OpenMM runs simulations to obtain trajectories and potential energies. FastMBAR calculates relative free energies.</p>
 <section id="parametrize-force-fields-and-generate-prmtop-and-inpcrd-files">
 <h2>1. Parametrize Force Fields and Generate prmtop and inpcrd Files<a class="headerlink" href="#parametrize-force-fields-and-generate-prmtop-and-inpcrd-files" title="Link to this heading">#</a></h2>
 <p>First, we need to obtain the necessary input files to run openMM simulations. To do this, download the <code class="docutils literal notranslate"><span class="pre">mol2</span></code> file of benzene (mobley_3053621.mol2). Once the mol2 files are stored in the desired directory, we will check for any missing parameters in the mol2 file. If there are any missing parameters, the closest alternative parameter will be selected and stored in the frcmod file. The command to check missing parameters and save alternative parameters:</p>
