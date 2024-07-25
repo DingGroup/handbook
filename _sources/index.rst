@@ -20,6 +20,7 @@ It contains logistics, instructions, and tutorials.
    getting_help
    openmm/openmm_101
    ml/linear_regression_jax
+   tutorial/hydration_free_energy_implicit_solvent
 
 ..
    Indices and tables

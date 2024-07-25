@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model &#8212; The Ding Lab Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../_static/documentation_options.js?v=5db94ae7"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorial/hydration_free_energy_implicit_solvent';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Linear Regression using JAX" href="../ml/linear_regression_jax.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">The Ding Lab Handbook</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cluster_account.html">Cluster Account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux_commands.html">Linux commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../editors.html">Text Editors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../computing_on_cluster.html">Computing on Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_env.html">Python environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_help.html">Getting Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openmm/openmm_101.html">OpenMM 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ml/linear_regression_jax.html">Linear Regression using JAX</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/DingGroup/TheDingLabHandbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorial/hydration_free_energy_implicit_solvent.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrize-force-fields-and-generate-prmtop-and-inpcrd-files">1. Parametrize Force Fields and Generate prmtop and inpcrd Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construct-and-run-openmm-for-obtaining-trajectory">2. Construct and Run openMM for Obtaining Trajectory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-energies-based-on-openmm-trajectory-and-compute-relative-free-energy-with-fastmbar">3. Calculate Energies Based on openMM Trajectory and Compute Relative Free Energy with FastMBAR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-hydration-energy-and-benchmarking">4. Compute Hydration Energy and Benchmarking</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="benchmarking-hydration-energy-for-benzene-using-implicit-solvent-model">
+<h1>Benchmarking Hydration Energy for Benzene Using Implicit Solvent Model<a class="headerlink" href="#benchmarking-hydration-energy-for-benzene-using-implicit-solvent-model" title="Link to this heading">#</a></h1>
+<p>This tutorial provides a step-by-step guide to benchmarking implicit solvent models using AmberTools, openMM, and FastMBER. AmberTools is used for parameterizing force fields and generating topology (prmtop) and initial coordinate (inpcrd) files. OpenMM runs simulations to obtain trajectories and potential energies. FastMBAR calculates relative free energies.</p>
+<section id="parametrize-force-fields-and-generate-prmtop-and-inpcrd-files">
+<h2>1. Parametrize Force Fields and Generate prmtop and inpcrd Files<a class="headerlink" href="#parametrize-force-fields-and-generate-prmtop-and-inpcrd-files" title="Link to this heading">#</a></h2>
+<p>First, we need to obtain the necessary input files to run openMM simulations. To do this, download the <code class="docutils literal notranslate"><span class="pre">mol2</span></code> file of benzene (mobley_3053621.mol2). Once the mol2 files are stored in the desired directory, we will check for any missing parameters in the mol2 file. If there are any missing parameters, the closest alternative parameter will be selected and stored in the frcmod file. The command to check missing parameters and save alternative parameters:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>parmchk2<span class="w"> </span>-i<span class="w"> </span>mobley_3053621.mol2<span class="w"> </span>-f<span class="w"> </span>mol2<span class="w"> </span>-o<span class="w"> </span>mobley_3053621.frcmod
+</pre></div>
+</div>
+<p>Create <code class="docutils literal notranslate"><span class="pre">mobley_3053621.in</span></code> file to generate prmtop and inpcrd files. In the mobley_3053621.in file, you need to load the force field (gaff in this example), frcmod, and mol2 files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source leaprc.gaff</span>
+<span class="n">source</span> <span class="n">leaprc</span><span class="o">.</span><span class="n">gaff</span>
+
+<span class="c1">#Set default radii</span>
+<span class="nb">set</span> <span class="n">default</span> <span class="n">PBRadii</span> <span class="n">mbondi3</span>
+
+<span class="c1">#Load the frcmod</span>
+<span class="n">LoadAmberParams</span> <span class="n">mobley_3053621</span><span class="o">.</span><span class="n">frcmod</span>
+
+<span class="c1"># Load the mol2</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">loadmol2</span> <span class="n">mobley_3053621</span><span class="o">.</span><span class="n">mol2</span>
+
+<span class="c1"># Save prmtop and inpcrd files</span>
+<span class="n">saveamberparm</span> <span class="n">structure</span> <span class="n">mobley_3053621</span><span class="o">.</span><span class="n">prmtop</span> <span class="n">mobley_3053621</span><span class="o">.</span><span class="n">inpcrd</span>
+
+<span class="c1"># Quit</span>
+<span class="n">quit</span>
+</pre></div>
+</div>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">mobley_3053621.in</span></code> file using the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tleap<span class="w"> </span>-f<span class="w"> </span>mobley_3053621.in
+</pre></div>
+</div>
+<p>After running this command, mobley_3053621.prmtop, mobley_3053621.inpcrd, and  leap.log files will be created. In the leap.log file, look for the line “Exiting LEaP: Errors = 0; Warnings = 0; Notes = 0”. Ensure that “Errors” equals zero before proceeding to the next steps.</p>
+</section>
+<section id="construct-and-run-openmm-for-obtaining-trajectory">
+<h2>2. Construct and Run openMM for Obtaining Trajectory<a class="headerlink" href="#construct-and-run-openmm-for-obtaining-trajectory" title="Link to this heading">#</a></h2>
+<p>The purpose of this step is to gather trajectory for both the vacuum condition and implicit solvent model using openMM simulation. Create <code class="docutils literal notranslate"><span class="pre">simulation_implicit_mobley_3053621.py</span></code> and load necessary packages, inpcrd, and prmtop files inside the script.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openmm.app</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">openmm.unit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="c1">#Create trajectory output file</span>
+<span class="n">trajectory_file</span> <span class="o">=</span> <span class="s1">&#39;mobley_3053621_implicit_trajectory.pdb&#39;</span>
+
+<span class="c1">#Specify the path to inpcrd and prmtop files</span>
+<span class="n">inpcrd_path</span> <span class="o">=</span> <span class="s1">&#39;/cluster/tufts/dinglab/shared/Benchmark/mobley_3053621.inpcrd&#39;</span>
+<span class="n">prmtop_path</span> <span class="o">=</span> <span class="s1">&#39;/cluster/tufts/dinglab/shared/Benchmark/mobley_3053621.prmtop&#39;</span>
+
+<span class="c1">#load inpcrd and prmtop files</span>
+<span class="n">inpcrd</span> <span class="o">=</span> <span class="n">AmberInpcrdFile</span><span class="p">(</span><span class="n">inpcrd_path</span><span class="p">)</span>
+<span class="n">prmtop</span> <span class="o">=</span> <span class="n">AmberPrmtopFile</span><span class="p">(</span><span class="n">prmtop_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create the openMM system. This example is for implicit solvent models.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create openMM system</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">prmtop</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">implicitSolvent</span><span class="o">=</span><span class="n">OBC2</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">HBonds</span><span class="p">)</span>
+
+
+<span class="c1"># request integrator</span>
+<span class="n">integrator</span> <span class="o">=</span> <span class="n">LangevinMiddleIntegrator</span><span class="p">(</span><span class="mi">300</span><span class="o">*</span><span class="n">kelvin</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">picosecond</span><span class="p">,</span> <span class="mf">0.002</span><span class="o">*</span><span class="n">picoseconds</span><span class="p">)</span>
+
+<span class="c1"># request platform</span>
+<span class="n">platform</span> <span class="o">=</span> <span class="n">Platform</span><span class="o">.</span><span class="n">getPlatformByName</span><span class="p">(</span><span class="s1">&#39;CPU&#39;</span><span class="p">)</span>
+
+<span class="c1"># create a simulation context</span>
+<span class="n">simulation</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">prmtop</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">integrator</span><span class="p">,</span> <span class="n">platform</span><span class="p">)</span>
+
+<span class="c1"># Set the initial position</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">inpcrd</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+
+<span class="c1"># request the local energy minimization</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">minimizeEnergy</span><span class="p">()</span>
+
+<span class="n">simulation</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+
+<span class="c1">#Record the output trajectory file</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PDBReporter</span><span class="p">(</span><span class="n">trajectory_file</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># Run simulation</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2500</span><span class="p">):</span>
+    <span class="n">simulation</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Completed simulation for mobley_3053621&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trajectory saved as: mobley_3053621_implicit_trajectory.pdb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">simulation_implicit_mobley_3053621.py</span></code> and you will collect a trajectory file for implicit solvent model.</p>
+<p>For the vacuum conditions of an openMM simulation, it is very similar to implicitit solvent model. You need to create <code class="docutils literal notranslate"><span class="pre">simulation_vacuum_mobley_3053621.py</span></code>. The main difference is you need to replace one line in the system setup, and you also need to modify the name of output trajectory file. For the vacuum conditions, use the following code when creating the system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">prmtop</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">nonbondedMethod</span><span class="o">=</span><span class="n">NoCutoff</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">HBonds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">simulation_vacuum_mobley_3053621.py</span></code>, and you will collect a trajectory file for vacuum condition. We need trajectories from both vacuum and implicit solvent models for the next step.</p>
+</section>
+<section id="calculate-energies-based-on-openmm-trajectory-and-compute-relative-free-energy-with-fastmbar">
+<h2>3. Calculate Energies Based on openMM Trajectory and Compute Relative Free Energy with FastMBAR<a class="headerlink" href="#calculate-energies-based-on-openmm-trajectory-and-compute-relative-free-energy-with-fastmbar" title="Link to this heading">#</a></h2>
+<p>In this step, we will use the trajectory computed by the previous step and calculate potential energies in openMM. Then, using those results, FastMBAR will compute relative free energy, which can be used to calculate the hydration energy.
+Create <code class="docutils literal notranslate"><span class="pre">MBAR_mobley_3053621.py</span></code>. The first part of the code is setting up the system for openMM simulation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">mdtraj</span>
+<span class="kn">from</span> <span class="nn">openmm</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">unit</span>
+<span class="kn">import</span> <span class="nn">openmm</span> <span class="k">as</span> <span class="nn">omm</span>
+<span class="kn">from</span> <span class="nn">FastMBAR</span> <span class="kn">import</span> <span class="n">FastMBAR</span>
+
+<span class="c1"># Load topology file</span>
+<span class="n">topology</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">AmberPrmtopFile</span><span class="p">(</span><span class="s1">&#39;/cluster/tufts/dinglab/shared/Benchmark/mobley_3053621.prmtop&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load trajectory</span>
+<span class="n">stride</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">traj_vacuum</span> <span class="o">=</span> <span class="n">mdtraj</span><span class="o">.</span><span class="n">load_pdb</span><span class="p">(</span><span class="s1">&#39;/cluster/tufts/dinglab/shared/Benchmark/mobley_3053621_vacuum_trajectory.pdb&#39;</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span>
+<span class="n">traj_implicit</span> <span class="o">=</span> <span class="n">mdtraj</span><span class="o">.</span><span class="n">load_pdb</span><span class="p">(</span><span class="s1">&#39;/cluster/tufts/dinglab/shared/Benchmark/mobley_3053621_implicit_trajectory.pdb&#39;</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span>
+
+<span class="c1"># Simulation parameters</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="mi">300</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">kelvin</span>
+<span class="n">friction_coef</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">unit</span><span class="o">.</span><span class="n">picosecond</span>
+<span class="n">time_step</span> <span class="o">=</span> <span class="mf">0.002</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">picoseconds</span>
+
+<span class="c1"># Create integrator for vacuum and implicit solvent</span>
+<span class="n">integrator_vacuum</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">LangevinMiddleIntegrator</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">friction_coef</span><span class="p">,</span> <span class="n">time_step</span><span class="p">)</span>
+<span class="n">integrator_implicit</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">LangevinMiddleIntegrator</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">friction_coef</span><span class="p">,</span> <span class="n">time_step</span><span class="p">)</span>
+
+<span class="c1"># Define systems for vacuum and implicit solvent</span>
+<span class="n">system_vacuum</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">nonbondedMethod</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">NoCutoff</span><span class="p">)</span>
+<span class="n">system_implicit</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">createSystem</span><span class="p">(</span><span class="n">implicitSolvent</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">OBC2</span><span class="p">,</span> <span class="n">nonbondedMethod</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">NoCutoff</span><span class="p">)</span>
+
+<span class="c1"># Create OpenMM Context for vacuum and implicit solvent</span>
+<span class="n">context_vacuum</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">system_vacuum</span><span class="p">,</span> <span class="n">integrator_vacuum</span><span class="p">)</span>
+<span class="n">context_implicit</span> <span class="o">=</span> <span class="n">omm</span><span class="o">.</span><span class="n">Context</span><span class="p">(</span><span class="n">system_implicit</span><span class="p">,</span> <span class="n">integrator_implicit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the second part of the code, we first set up a matrix for FastMBAR, then compute potential energies based on trajectory using openMM, and finally use FastMBAR to compute relative free energy. For FastMBAR, we arrange a matrix structured as follows:</p>
+<img alt="../_images/matrix-2-1.png" src="../_images/matrix-2-1.png" />
+<p>The first word is where the trajectory is generated, and the second word is where the energy calculation is performed. For example, vacuum_vacuum represents the trajectory generated under vacuum conditions used to compute energy in vacuum. Vacuum_implicit represents the trajectory generated under the vacuum used to compute energy in the implicit solvent model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a matrix for FastMBAR.</span>
+<span class="n">potential_energies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;vacuum_vacuum&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;vacuum_implicit&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;implicit_vacuum&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;implicit_implicit&#39;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Compute potential energies in both condition for each frame in vacuum trajectory</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj_vacuum</span><span class="o">.</span><span class="n">xyz</span><span class="p">:</span>
+    <span class="n">context_vacuum</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+    <span class="n">context_implicit</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+    <span class="n">state_vacuum</span> <span class="o">=</span> <span class="n">context_vacuum</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">state_implicit</span> <span class="o">=</span> <span class="n">context_implicit</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Store the potential energies at the respective categories</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_vacuum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state_vacuum</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span><span class="o">.</span><span class="n">value_in_unit</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">))</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_implicit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state_implicit</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span><span class="o">.</span><span class="n">value_in_unit</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">))</span>
+
+
+<span class="c1"># Compute potential energies in both condition for each frame in implicit solvent model trajectory</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">traj_implicit</span><span class="o">.</span><span class="n">xyz</span><span class="p">:</span>
+    <span class="n">context_vacuum</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+    <span class="n">context_implicit</span><span class="o">.</span><span class="n">setPositions</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+    <span class="n">state_vacuum</span> <span class="o">=</span> <span class="n">context_vacuum</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">state_implicit</span> <span class="o">=</span> <span class="n">context_implicit</span><span class="o">.</span><span class="n">getState</span><span class="p">(</span><span class="n">getEnergy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Store the potential energies at the respective categories</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_vacuum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state_vacuum</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span><span class="o">.</span><span class="n">value_in_unit</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">))</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_implicit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">state_implicit</span><span class="o">.</span><span class="n">getPotentialEnergy</span><span class="p">()</span><span class="o">.</span><span class="n">value_in_unit</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">))</span>
+
+<span class="c1"># Convert potential energies to numpy arrays</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_vacuum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_vacuum&#39;</span><span class="p">])</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_implicit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_implicit&#39;</span><span class="p">])</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_vacuum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_vacuum&#39;</span><span class="p">])</span>
+<span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_implicit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_implicit&#39;</span><span class="p">])</span>
+
+<span class="c1"># Set the number of column and rows for the matrix</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span> <span class="o">+</span> <span class="n">traj_implicit</span><span class="o">.</span><span class="n">n_frames</span>
+<span class="n">M</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Compute matrix A and define kbT</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="n">kbT</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span class="n">BOLTZMANN_CONSTANT_kB</span> <span class="o">*</span> <span class="n">temperature</span> <span class="o">*</span> <span class="n">unit</span><span class="o">.</span><span class="n">AVOGADRO_CONSTANT_NA</span>
+<span class="n">kbT</span> <span class="o">=</span> <span class="n">kbT</span><span class="o">.</span><span class="n">value_in_unit</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">kilojoule_per_mole</span><span class="p">)</span>
+
+<span class="c1"># Populate the matrix. Divide the each energy by kbT to make the energy unitless</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span><span class="p">]</span> <span class="o">=</span> <span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_vacuum&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kbT</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span><span class="p">:]</span> <span class="o">=</span> <span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_vacuum&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kbT</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span><span class="p">]</span> <span class="o">=</span> <span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;vacuum_implicit&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kbT</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span><span class="p">:]</span> <span class="o">=</span> <span class="n">potential_energies</span><span class="p">[</span><span class="s1">&#39;implicit_implicit&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">kbT</span>
+
+<span class="c1"># Define num_conf (number of conformations) for each state</span>
+<span class="n">num_conf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">traj_vacuum</span><span class="o">.</span><span class="n">n_frames</span><span class="p">,</span> <span class="n">traj_implicit</span><span class="o">.</span><span class="n">n_frames</span><span class="p">])</span>
+
+<span class="c1"># Solve MBAR equations using FastMBAR</span>
+<span class="n">fastmbar</span> <span class="o">=</span> <span class="n">FastMBAR</span><span class="p">(</span><span class="n">energy</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">num_conf</span><span class="o">=</span><span class="n">num_conf</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Relative free energies: &quot;</span><span class="p">,</span> <span class="n">fastmbar</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">MBAR_mobley_3053621.py</span></code>, and you will obtain relative free energies from two conditions: vacuum and implicit solvent model.</p>
+</section>
+<section id="compute-hydration-energy-and-benchmarking">
+<h2>4. Compute Hydration Energy and Benchmarking<a class="headerlink" href="#compute-hydration-energy-and-benchmarking" title="Link to this heading">#</a></h2>
+<p>To compute hydration energy, subtract the energy computed in the vacuum condition from the energy computed under the implicit solvent model. Finally, compare this result against reference data for benchmarking.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../ml/linear_regression_jax.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Regression using JAX</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrize-force-fields-and-generate-prmtop-and-inpcrd-files">1. Parametrize Force Fields and Generate prmtop and inpcrd Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construct-and-run-openmm-for-obtaining-trajectory">2. Construct and Run openMM for Obtaining Trajectory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-energies-based-on-openmm-trajectory-and-compute-relative-free-energy-with-fastmbar">3. Calculate Energies Based on openMM Trajectory and Compute Relative Free Energy with FastMBAR</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-hydration-energy-and-benchmarking">4. Compute Hydration Energy and Benchmarking</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Ding Lab Members
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, The Ding Lab Members.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
