@@ -21,6 +21,7 @@ It contains logistics, instructions, and tutorials.
    openmm/openmm_101
    ml/linear_regression_jax
    tutorial/hydration_free_energy_implicit_solvent
+   tutorial/sampling_from_distributions.ipynb
 
 ..
    Indices and tables
